@@ -19,7 +19,8 @@ class PokemonRepositoryImpl implements PokemonRepository {
       return remotePokemons.map((model) => PokemonEntity(
         id: model.id,
         name: model.name,
-        imageUrl: model.imageUrl,
+        imageUrl: model.imageUrl, 
+        weight: 200, height: 200, types: [], abilities: [], stats: [],
       )).toList();
     } catch (e) {
       // Si falla la fuente remota, intentar cargar de la base de datos local.
@@ -27,8 +28,13 @@ class PokemonRepositoryImpl implements PokemonRepository {
       return localPokemons.map((model) => PokemonEntity(
         id: model.id,
         name: model.name,
-        imageUrl: model.imageUrl,
+        imageUrl: model.imageUrl, weight: 200, height: 200, types: [], abilities: [], stats: [],
       )).toList();
     }
+  }
+  
+  @override
+  Future<PokemonEntity> getPokemonDetail(String pokemonName) async {
+      return await remoteDataSource.fetchPokemonDetails(pokemonName);
   }
 }

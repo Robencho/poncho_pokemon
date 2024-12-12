@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:poncho_pokemon/domain/usecases/get_pokemon_detail_usecase.dart';
 
 import '../data/datasources/local/pokemon_database.dart';
 import '../data/datasources/local/pokemon_local_datasource.dart';
@@ -29,4 +30,7 @@ void init(){
 
       // Use cases
   sl.registerLazySingleton(() => GetPokemonList(sl()));
+
+  sl.registerLazySingleton<GetPokemonDetailUsecase>(
+      () => GetPokemonDetailUsecase(sl<PokemonRepository>()));
 }
